@@ -5,6 +5,3 @@ def layout():
             if col != 2:
                 print(" | ", end="")
         print()
-
-layout()
-
