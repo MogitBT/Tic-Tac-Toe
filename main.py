@@ -20,3 +20,4 @@ def move():
     player = user_input()
     pc = pc_choice()
     print(pc)
+    
