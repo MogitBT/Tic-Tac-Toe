@@ -28,11 +28,11 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
 
     - **For Double Player**
     ```sh
-    cd tic-tac-toe/Double Player
+    cd Tic-Tac-Toe/Double Player
     ```
    - **For Single Player**
     ```sh
-    cd tic-tac-toe/Single Player
+    cd Tic-Tac-Toe/Single Player
     ```
 4. **Run the game:**
     ```sh
