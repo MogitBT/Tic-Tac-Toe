@@ -25,12 +25,17 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
     git clone https://github.com/yourusername/tic-tac-toe.git
     ```
 2. **Navigate to the project directory:**
+    *** For Double Player
     ```sh
-    cd tic-tac-toe
+    cd tic-tac-toe/Double Player
     ```
-3. **Run the game:**
+    *** For Single Player
     ```sh
-    python tic_tac_toe.py
+    cd tic-tac-toe/Single Player
+    ```
+4. **Run the game:**
+    ```sh
+    python main.py
     ```
 
 ## Game Modes
