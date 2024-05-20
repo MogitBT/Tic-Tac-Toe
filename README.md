@@ -22,7 +22,7 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
 ## Installation
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/tic-tac-toe.git
+    git clone https://github.com/MogitBT/Tic-Tac-Toe.git
     ```
 2. **Navigate to the project directory:**
 
