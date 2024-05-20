@@ -5,18 +5,16 @@
 - [Features](#features)
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+  
 
 ## Introduction
-Welcome to the Tic Tac Toe Game project! This is a simple command-line implementation of the classic Tic Tac Toe game written in Python. The game allows two players to take turns marking spaces in a 3x3 grid with 'X' and 'O'. The player who successfully places three of their marks in a horizontal, vertical, or diagonal row wins the game.
+Welcome to the Tic Tac Toe Game project! This is a simple command-line implementation of the classic Tic Tac Toe game written in Python. The game supports both two-player mode and single-player mode where you can play against a bot.
 
 ## Features
 - Two-player gameplay.
+- Single-player mode with a bot opponent.
 - Input validation to ensure valid moves.
 - Dynamic game board display.
-- Detection of win conditions and draw situations.
 
 ## Requirements
 - Python 3.x
@@ -34,3 +32,13 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
     ```sh
     python tic_tac_toe.py
     ```
+
+## Game Modes
+1. **Two-Player Mode:**
+    - Each player takes turns to enter their move by specifying the number.
+    - The game will indicate if a player wins or if the game is a draw.
+
+2. **Single-Player Mode:**
+    - Play against a bot that makes moves based on a simple algorithm.
+    - You will be prompted to enter your moves.
+    - The bot will make its move after you enter yours.
