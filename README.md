@@ -25,7 +25,7 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
     git clone https://github.com/yourusername/tic-tac-toe.git
     ```
 2. **Navigate to the project directory:**
-    ** For Double Player***
+    *** For Double Player***
     ```sh
     cd tic-tac-toe/Double Player
     ```
