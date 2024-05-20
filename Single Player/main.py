@@ -1,3 +1,4 @@
+import random
 class game:
 
     structure = ["_" for i in range(9)]
@@ -13,22 +14,22 @@ class game:
             print("")
         print()
 
-    def user1_input():
-        user_choice = int(input("Player 1 (x) Enter your move (1-9) : "))
+    def user_input():
+        user_choice = int(input("Enter the number of your choice (1-9) : "))
         if game.structure[user_choice-1] == "_":
             game.structure[user_choice-1] = "X"
             game.layout()
         else:
             print("Invalid move")
-            game.user1_input()
+            game.user_input()
 
-    def user2_input():
-        pc_choice = int(input("Player 2 (O) Enter your move (1-9) : "))
+    def pc_input():
+        pc_choice = random.randint(1,9)
         if game.structure[pc_choice-1] == "_":
             game.structure[pc_choice-1] = "O"
             game.layout()
         else:
-            game.user2_input()
+            game.pc_input()
 
     def check(player):
         if ((game.structure[0] == game.structure[1] == game.structure[2] == player) or 
@@ -39,24 +40,20 @@ class game:
             (game.structure[2] == game.structure[5] == game.structure[8] == player) or
             (game.structure[0] == game.structure[4] == game.structure[8] == player) or 
             (game.structure[2] == game.structure[4] == game.structure[6] == player)):
-            if player == "X":
-                print("Player 1 won")
-                return True
-            else:
-                print("Player 2 won")
-                return True
+            print(player + " have won")
+            return True
         else:
             return False
 
-
+    
 def main():
     game.layout()
     while True:
-        game.user1_input()
+        game.user_input()
         if game.check("X"):
             break
 
-        game.user2_input()
+        game.pc_input()
         if game.check("O"):
             break
 
