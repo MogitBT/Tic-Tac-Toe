@@ -24,14 +24,10 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
     ```sh
     git clone https://github.com/MogitBT/Tic-Tac-Toe.git
     ```
-2. **Navigate to the project directory:**
 
+2. **Run the game:**
     ```sh
-    cd Tic-Tac-Toe
-    ```
-4. **Run the game:**
-    ```sh
-    python main.py
+    python tic_tac_toe.py
     ```
 
 ## Game Modes
