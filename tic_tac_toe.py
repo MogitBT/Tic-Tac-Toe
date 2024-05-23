@@ -73,10 +73,10 @@ class game:
             (game.structure[0] == game.structure[4] == game.structure[8] == player) or 
             (game.structure[2] == game.structure[4] == game.structure[6] == player)):
             if player == "X":
-                print("Player 1 won")
+                print("Player x won")
                 return True
             else:
-                print("Player 2 won")
+                print("Player O won")
                 return True
         else:
             return False
@@ -87,48 +87,57 @@ class game:
 
 
 def main():
-    mode = int(input('''1 - For Single Player
+    while True:
+        restart = input("Press Y to start the game and N to quit the game : ")
+        if restart.upper() == "Y":
+            while True:
+                mode = input('''1 - For Single Player
 2 - For Double Player
-Enter the Mode: '''))
-    if mode == 2 :
-        print("\nYou Are Playing Double Player Mode \n")
-        game.layout()
-        while True:
-            game.user1_input()
-            if game.check("X"):
-                break
-            if game.draw():
-                print("Match Draw")
-                break
+Enter the Mode: ''')
+                if mode.isdigit() and int(mode) ==  2:
+                    print("\nYou Are Playing Double Player Mode \n")
+                    game.layout()
+                    while True:
+                        game.user1_input()
+                        if game.check("X"):
+                            break
+                        if game.draw():
+                            print("Match Draw")
+                            break
 
-            game.user2_input()
-            if game.check("O"):
-                break
-            if game.draw():
-                print("Match Draw")
-                break
+                        game.user2_input()
+                        if game.check("O"):
+                            break
+                        if game.draw():
+                            print("Match Draw")
+                            break
 
-    elif mode == 1:
-        print(" \nYou Are Playing Single Player Mode\n")
-        game.layout()
-        while True:
-            game.user_input()
-            if game.check("X"):
-                break
-            if game.draw():
-                print("Match Draw")
-                break
+                elif mode.isdigit() and int(mode) ==  1:
+                    print(" \nYou Are Playing Single Player Mode\n")
+                    game.layout()
+                    while True:
+                        game.user_input()
+                        if game.check("X"):
+                            break
+                        if game.draw():
+                            print("Match Draw")
+                            break
 
-            game.pc_input()
-            if game.check("O"):
-                break
-            if game.draw():
-                print("Match Draw")
-                break
-    else:
-        print("Choose mode correctly")
-        main()
-
+                        game.pc_input()
+                        if game.check("O"):
+                            break
+                        if game.draw():
+                            print("Match Draw")
+                            break
+                    break
+                else:
+                    print("Choose mode correctly")
+                
+        elif restart.upper() == "N":
+            break
+        else:
+            print("Y or N only allowed")
+            main()
 
 if __name__ == "__main__":
     main()
