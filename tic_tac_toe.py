@@ -54,32 +54,64 @@ class game:
             print("Enter only number between 1 to 9")
             game.user_input()
 
+    def check(player):
+        combinations = [
+        [0, 1, 2], [3, 4, 5],[6, 7, 8],
+        [0, 3, 6],[1, 4, 7],[2, 5, 8],
+        [0, 4, 8],[2, 4, 6]]
+
+        for possibility in combinations:
+            win = True
+            for i in possibility:
+                if game.structure[i] != player:
+                    win = False
+                    break
+            if win:
+                if player == "X":
+                    print("Player X won")
+                else:
+                    print("Player O won")
+                return True
+                
+        return False
+
 
     def pc_input():
-        pc_choice = random.randint(1,9)
-        if game.structure[pc_choice-1] == "_":
-            game.structure[pc_choice-1] = "O"
-            game.layout()
-        else:
-            game.pc_input()
+        combination = [
+        [0, 1, 2], [3, 4, 5],[6, 7, 8],
+        [0, 3, 6],[1, 4, 7],[2, 5, 8],
+        [0, 4, 8],[2, 4, 6]]
+        pc_choice = -1
 
-    def check(player):
-        if ((game.structure[0] == game.structure[1] == game.structure[2] == player) or 
-            (game.structure[3] == game.structure[4] == game.structure[5] == player) or 
-            (game.structure[6] == game.structure[7] == game.structure[8] == player) or 
-            (game.structure[0] == game.structure[3] == game.structure[6] == player) or 
-            (game.structure[1] == game.structure[4] == game.structure[7] == player) or
-            (game.structure[2] == game.structure[5] == game.structure[8] == player) or
-            (game.structure[0] == game.structure[4] == game.structure[8] == player) or 
-            (game.structure[2] == game.structure[4] == game.structure[6] == player)):
-            if player == "X":
-                print("Player x won")
-                return True
-            else:
-                print("Player O won")
-                return True
+        for possibility in combination:
+            count = 0
+            temp = -1
+            for i in possibility:
+                if game.structure[i] == "X":
+                    count += 1
+                elif game.structure[i] == "_":
+                    temp = i
+            if count == 2 and temp != -1:
+                pc_choice = temp
+                break
+                    
+        if count == 2:
+            game.structure[pc_choice] = "O"
+            game.layout()
+
+        elif game.structure[4] == "_":
+            game.structure[4] = "O"
+            game.layout()
+        
         else:
-            return False
+            pc_choice = random.randint(1,9)
+            if game.structure[pc_choice-1] == "_":
+                game.structure[pc_choice-1] = "O"
+                game.layout()
+            else:
+                game.pc_input()
+
+
         
     def draw():
         if "_" not in game.structure:
@@ -94,7 +126,7 @@ def main():
                 mode = input('''1 - For Single Player
 2 - For Double Player
 Enter the Mode: ''')
-                if mode.isdigit() and int(mode) ==  2:
+                if mode.isdigit() and int(mode) ==  2: 
                     print("\nYou Are Playing Double Player Mode \n")
                     game.layout()
                     while True:
@@ -111,6 +143,9 @@ Enter the Mode: ''')
                         if game.draw():
                             print("Match Draw")
                             break
+                    game.structure = ["_" for i in range(9)]
+                    break
+
 
                 elif mode.isdigit() and int(mode) ==  1:
                     print(" \nYou Are Playing Single Player Mode\n")
@@ -129,6 +164,7 @@ Enter the Mode: ''')
                         if game.draw():
                             print("Match Draw")
                             break
+                    game.structure = ["_" for i in range(9)]
                     break
                 else:
                     print("Choose mode correctly")
