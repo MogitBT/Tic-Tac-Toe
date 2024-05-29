@@ -15,6 +15,7 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
 - Single-player mode with a bot opponent.
 - Input validation to ensure valid moves.
 - Dynamic game board display.
+- Improved bot's performance in single player
 
 ## Requirements
 - Python 3.x
