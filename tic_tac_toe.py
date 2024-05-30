@@ -86,16 +86,26 @@ class game:
         for possibility in combination:
             count = 0
             temp = -1
+            bot_count = 0
             for i in possibility:
                 if game.structure[i] == "X":
                     count += 1
+                elif game.structure[i] == "O":
+                    bot_count += 1
                 elif game.structure[i] == "_":
                     temp = i
             if count == 2 and temp != -1:
                 pc_choice = temp
                 break
+            elif bot_count == 2 and temp != -1:
+                pc_choice = temp
+                break
                     
         if count == 2:
+            game.structure[pc_choice] = "O"
+            game.layout()
+
+        elif bot_count == 2:
             game.structure[pc_choice] = "O"
             game.layout()
 
