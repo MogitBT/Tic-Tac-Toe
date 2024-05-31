@@ -108,10 +108,6 @@ class game:
         elif bot_count == 2:
             game.structure[pc_choice] = "O"
             game.layout()
-
-        elif game.structure[4] == "_":
-            game.structure[4] = "O"
-            game.layout()
         
         else:
             pc_choice = random.randint(1,9)
@@ -121,12 +117,9 @@ class game:
             else:
                 game.pc_input()
 
-
-        
     def draw():
         if "_" not in game.structure:
             return True
-
 
 def main():
     while True:
