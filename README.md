@@ -35,8 +35,9 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
 1. **Two-Player Mode:**
     - Each player takes turns to enter their move by specifying the number.
     - The game will indicate if a player wins or if the game is a draw.
-
+      
 2. **Single-Player Mode:**
     - Play against a bot that makes moves based on a simple algorithm.
     - You will be prompted to enter your moves.
     - The bot will make its move after you enter yours.
+    - Optimised Bot's performance to reduce the winning probability
