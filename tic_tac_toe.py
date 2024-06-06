@@ -1,7 +1,10 @@
 import random
+import os
+import pickle
 class game:
 
     structure = ["_" for i in range(9)]
+    current_mode = None
 
     def layout():
         count = 0
@@ -15,7 +18,12 @@ class game:
         print()
 
     def user1_input(): #Double player mode user 1
-        user1_choice = input("Player 1 (X) Enter your move (1-9) : ")
+        user1_choice = input("Player 1 (X) Enter your move (1-9) or S to save game : ")
+
+        if user1_choice.upper() == "S":
+            game.save()
+            main()
+
         if user1_choice.isdigit() and int(user1_choice) in range(1, 10):
             if game.structure[int(user1_choice)-1] == "_":
                 game.structure[int(user1_choice)-1] = "X"
@@ -23,13 +31,19 @@ class game:
             else:
                 print("Invalid move")
                 game.user1_input()
+        
         else:
             print("Enter only number between 1 to 9")
             game.user1_input()
 
 
     def user2_input(): #Double player mode user 2
-        user2_choice = input("Player 2 (O) Enter your move (1-9) : ")
+        user2_choice = input("Player 2 (O) Enter your move (1-9) or S to save game : ")
+
+        if user2_choice.upper() == "S":
+            game.save()
+            main()
+
         if user2_choice.isdigit() and int(user2_choice) in range(1, 10):
             if game.structure[int(user2_choice)-1] == "_":
                 game.structure[int(user2_choice)-1] = "O"
@@ -42,7 +56,12 @@ class game:
             game.user2_input()
     
     def user_input():#Single player mode user 1
-        user_choice = input("Enter the number of your choice (1-9) : ")
+        user_choice = input("Enter the number of your choice (1-9) or S to save game : ")
+
+        if user_choice.upper() == "S":
+            game.save()
+            main()
+
         if user_choice.isdigit() and int(user_choice) in range(1, 10):
             if game.structure[int(user_choice)-1] == "_":
                 game.structure[int(user_choice)-1] = "X"
@@ -74,67 +93,91 @@ class game:
                 return True
                 
         return False
+    
+    def save():
+        filename = input("Enter the file name to save : ")
+        filename += ".pkl"
+        with open(filename,'wb') as f:
+            pickle.dump((game.structure,game.current_mode), f)
+        print("Game saved Successfully")
+
+    def load():
+        filename = input("Enter the name of the file to be loaded : ")
+        filename += ".pkl"
+
+        if os.path.exists(filename):
+            with open(filename,'rb') as f:
+                game.structure, game.current_mode = pickle.load(f)
+            print("Game Loaded Successfully")
+            game.layout()
+        else:
+            print("No game data exist")
 
 
     def pc_input():
         combination = [
-        [0, 1, 2], [3, 4, 5],[6, 7, 8],
-        [0, 3, 6],[1, 4, 7],[2, 5, 8],
-        [0, 4, 8],[2, 4, 6]]
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],  
+            [0, 4, 8], [2, 4, 6]             
+        ]
         pc_choice = -1
 
         for possibility in combination:
-            count = 0
-            temp = -1
             bot_count = 0
+            bot_temp = -1
             for i in possibility:
-                if game.structure[i] == "X":
-                    count += 1
-                elif game.structure[i] == "O":
+                if game.structure[i] == "O":
                     bot_count += 1
                 elif game.structure[i] == "_":
-                    temp = i
-            if count == 2 and temp != -1:
-                pc_choice = temp
-                break
-            elif bot_count == 2 and temp != -1:
-                pc_choice = temp
-                break
-                    
-        if count == 2:
-            game.structure[pc_choice] = "O"
-            game.layout()
+                    bot_temp = i
 
-        elif bot_count == 2:
-            game.structure[pc_choice] = "O"
-            game.layout()
+            if bot_count == 2 and bot_temp != -1:
+                pc_choice = bot_temp
+                break
 
-        elif game.structure[4] == "_":
-            game.structure[4] = "O"
-            game.layout()
-        
-        else:
-            pc_choice = random.randint(1,9)
-            if game.structure[pc_choice-1] == "_":
-                game.structure[pc_choice-1] = "O"
-                game.layout()
-            else:
-                game.pc_input()
+        if pc_choice == -1:
+            for possibility in combination:
+                count = 0
+                temp = -1
+                for i in possibility:
+                    if game.structure[i] == "X":
+                        count += 1
+                    elif game.structure[i] == "_":
+                        temp = i
+
+                if count == 2 and temp != -1:
+                    pc_choice = temp
+                    break
+
+
+        if pc_choice == -1 and game.structure[4] == "_":
+            pc_choice = 4
+
+        if pc_choice == -1:
+            empty_positions = [i for i in range(9) if game.structure[i] == "_"]
+            if empty_positions:
+                pc_choice = random.choice(empty_positions)
+
+        game.structure[pc_choice] = "O"
+        game.layout()
 
     def draw():
         if "_" not in game.structure:
             return True
+        
+
 
 def main():
     while True:
-        restart = input("Press Y to start the game and N to quit the game : ")
+        restart = input("Press Y to start the game, N to quit the game And L to load game: ")
         if restart.upper() == "Y":
             while True:
                 mode = input('''1 - For Single Player
 2 - For Double Player
-Enter the Mode: ''')
+Enter the Mode : ''')
                 if mode.isdigit() and int(mode) ==  2: 
                     print("\nYou Are Playing Double Player Mode \n")
+                    game.current_mode = 2
                     game.layout()
                     while True:
                         game.user1_input()
@@ -156,6 +199,7 @@ Enter the Mode: ''')
 
                 elif mode.isdigit() and int(mode) ==  1:
                     print(" \nYou Are Playing Single Player Mode\n")
+                    game.current_mode = 1
                     game.layout()
                     while True:
                         game.user_input()
@@ -173,8 +217,53 @@ Enter the Mode: ''')
                             break
                     game.structure = ["_" for i in range(9)]
                     break
+            
                 else:
                     print("Choose mode correctly")
+
+        elif restart.upper() == "L":
+            game.load()
+            if game.current_mode == 2:
+                print("\nYou Are Playing Double Player Mode \n")
+                game.current_mode = 2
+                game.layout()
+                while True:
+                    game.user1_input()
+                    if game.check("X"):
+                        break
+                    if game.draw():
+                        print("Match Draw")
+                        break
+
+                    game.user2_input()
+                    if game.check("O"):
+                        break
+                    if game.draw():
+                        print("Match Draw")
+                        break
+                game.structure = ["_" for i in range(9)]
+            elif game.current_mode == 1:
+                print(" \nYou Are Playing Single Player Mode\n")
+                game.current_mode = 1
+                game.layout()
+                while True:
+                    game.user_input()
+                    if game.check("X"):
+                        break
+                    if game.draw():
+                        print("Match Draw")
+                        break
+
+                    game.pc_input()
+                    if game.check("O"):
+                        break
+                    if game.draw():
+                        print("Match Draw")
+                        break
+                game.structure = ["_" for i in range(9)]
+            else:
+                print("Invalid game mode loaded.")
+                game.structure = ["_" for i in range(9)]
                 
         elif restart.upper() == "N":
             break
