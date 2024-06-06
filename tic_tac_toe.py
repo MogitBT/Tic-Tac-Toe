@@ -94,26 +94,6 @@ class game:
                 
         return False
     
-    def save():
-        filename = input("Enter the file name to save : ")
-        filename += ".pkl"
-        with open(filename,'wb') as f:
-            pickle.dump((game.structure,game.current_mode), f)
-        print("Game saved Successfully")
-
-    def load():
-        filename = input("Enter the name of the file to be loaded : ")
-        filename += ".pkl"
-
-        if os.path.exists(filename):
-            with open(filename,'rb') as f:
-                game.structure, game.current_mode = pickle.load(f)
-            print("Game Loaded Successfully")
-            game.layout()
-        else:
-            print("No game data exist")
-
-
     def pc_input():
         combination = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], 
@@ -160,6 +140,25 @@ class game:
 
         game.structure[pc_choice] = "O"
         game.layout()
+    
+    def save():
+        filename = input("Enter the file name to save : ")
+        filename += ".pkl"
+        with open(filename,'wb') as f:
+            pickle.dump((game.structure,game.current_mode), f)
+        print("Game saved Successfully")
+
+    def load():
+        filename = input("Enter the name of the file to be loaded : ")
+        filename += ".pkl"
+
+        if os.path.exists(filename):
+            with open(filename,'rb') as f:
+                game.structure, game.current_mode = pickle.load(f)
+            print("Game Loaded Successfully")
+            game.layout()
+        else:
+            print("No game data exist")
 
     def draw():
         if "_" not in game.structure:
