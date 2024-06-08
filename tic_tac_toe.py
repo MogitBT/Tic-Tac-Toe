@@ -18,11 +18,24 @@ class game:
         print()
 
     def user1_input(): #Double player mode user 1
-        user1_choice = input("Player 1 (X) Enter your move (1-9) or S to save game : ")
+        user1_choice = input("Player 1 (X) Enter your move (1-9) or S to save game and R to refresh : ")
 
         if user1_choice.upper() == "S":
             game.save()
             main()
+        elif user1_choice.upper() == "R":
+            second_player = input("Second player enter R to refresh and N to deny : ")
+            if second_player.upper() == "R":
+                game.refresh()
+                print("Game refreshed")
+                game.layout()    
+                game.user1_input()
+            elif second_player.upper() == "N":
+                print("Player 2 doesn't want to refresh")
+                game.user1_input()
+            else:
+                print("Denied")
+                game.user1_input()
 
         if user1_choice.isdigit() and int(user1_choice) in range(1, 10):
             if game.structure[int(user1_choice)-1] == "_":
@@ -38,11 +51,24 @@ class game:
 
 
     def user2_input(): #Double player mode user 2
-        user2_choice = input("Player 2 (O) Enter your move (1-9) or S to save game : ")
+        user2_choice = input("Player 2 (O) Enter your move (1-9) or S to save gameand R to refresh : ")
 
         if user2_choice.upper() == "S":
             game.save()
             main()
+        elif user2_choice.upper() == "R":
+            first_player = input("First player enter R to refresh and N to deny : ")
+            if first_player.upper() == "R":
+                game.refresh()
+                print("Game refreshed")
+                game.layout()    
+                game.user1_input()
+            elif first_player.upper() == "N":
+                print("Player 1 doesn't want to refresh")
+                game.user2_input()
+            else:
+                print("Denied")
+                game.user2_input()
 
         if user2_choice.isdigit() and int(user2_choice) in range(1, 10):
             if game.structure[int(user2_choice)-1] == "_":
@@ -56,7 +82,7 @@ class game:
             game.user2_input()
     
     def user_input():#Single player mode user 1
-        user_choice = input("Enter the number of your choice (1-9) or S to save game : ")
+        user_choice = input("Enter the number of your choice (1-9) : ")
 
         if user_choice.upper() == "S":
             game.save()
@@ -94,6 +120,26 @@ class game:
                 
         return False
     
+    def save():
+        filename = input("Enter the file name to save : ")
+        filename += ".pkl"
+        with open(filename,'wb') as f:
+            pickle.dump((game.structure,game.current_mode), f)
+        print("Game saved Successfully")
+
+    def load():
+        filename = input("Enter the name of the file to be loaded : ")
+        filename += ".pkl"
+
+        if os.path.exists(filename):
+            with open(filename,'rb') as f:
+                game.structure, game.current_mode = pickle.load(f)
+            print("Game Loaded Successfully")
+            game.layout()
+        else:
+            print("No game data exist")
+
+
     def pc_input():
         combination = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], 
@@ -140,30 +186,13 @@ class game:
 
         game.structure[pc_choice] = "O"
         game.layout()
-    
-    def save():
-        filename = input("Enter the file name to save : ")
-        filename += ".pkl"
-        with open(filename,'wb') as f:
-            pickle.dump((game.structure,game.current_mode), f)
-        print("Game saved Successfully")
-
-    def load():
-        filename = input("Enter the name of the file to be loaded : ")
-        filename += ".pkl"
-
-        if os.path.exists(filename):
-            with open(filename,'rb') as f:
-                game.structure, game.current_mode = pickle.load(f)
-            print("Game Loaded Successfully")
-            game.layout()
-        else:
-            print("No game data exist")
 
     def draw():
         if "_" not in game.structure:
             return True
         
+    def refresh():
+        game.structure = ["_" for i in range(9)]
 
 
 def main():
@@ -173,7 +202,7 @@ def main():
             while True:
                 mode = input('''1 - For Single Player
 2 - For Double Player
-Enter the Mode : ''')
+Enter the Mode:''')
                 if mode.isdigit() and int(mode) ==  2: 
                     print("\nYou Are Playing Double Player Mode \n")
                     game.current_mode = 2
