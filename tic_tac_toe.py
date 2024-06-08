@@ -82,11 +82,16 @@ class game:
             game.user2_input()
     
     def user_input():#Single player mode user 1
-        user_choice = input("Enter the number of your choice (1-9) : ")
+        user_choice = input("Enter the number of your choice (1-9) or S to save game and R to refresh : ")
 
         if user_choice.upper() == "S":
             game.save()
             main()
+        elif user_choice.upper() == "R":
+            game.refresh()
+            print("The Game has been refreshed")
+            game.layout()
+            game.user1_input()
 
         if user_choice.isdigit() and int(user_choice) in range(1, 10):
             if game.structure[int(user_choice)-1] == "_":
