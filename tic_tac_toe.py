@@ -166,6 +166,7 @@ class game:
                 pc_choice = bot_temp
                 break
 
+        
         if pc_choice == -1:
             for possibility in combination:
                 count = 0
@@ -178,8 +179,7 @@ class game:
 
                 if count == 2 and temp != -1:
                     pc_choice = temp
-                    break
-
+                    break    
 
         if pc_choice == -1 and game.structure[4] == "_":
             pc_choice = 4
