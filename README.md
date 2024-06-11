@@ -16,6 +16,7 @@ Welcome to the Tic Tac Toe Game project! This is a simple command-line implement
 - Input validation to ensure valid moves.
 - Dynamic game board display.
 - Improved bot's performance in single player
+- Feature to save and retrive game using pickle
 
 ## Requirements
 - Python 3.x
