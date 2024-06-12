@@ -207,6 +207,7 @@ def main():
             while True:
                 mode = input('''1 - For Single Player
 2 - For Double Player
+3 - For Tutorial
 Enter the Mode:''')
                 if mode.isdigit() and int(mode) ==  2: 
                     print("\nYou Are Playing Double Player Mode \n")
@@ -250,6 +251,11 @@ Enter the Mode:''')
                             break
                     game.structure = ["_" for i in range(9)]
                     break
+
+                elif mode.isdigit() and int(mode) == 3:
+                    print("\nYou have Selected the tutorial")
+                    game.layout()
+                    
             
                 else:
                     print("Choose mode correctly")
