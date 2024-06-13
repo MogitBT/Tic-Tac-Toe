@@ -191,6 +191,28 @@ class game:
 
         game.structure[pc_choice] = "O"
         game.layout()
+    
+    def tutorial():
+        combination = [
+                        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+                        [0, 3, 6], [1, 4, 7], [2, 5, 8],  
+                        [0, 4, 8], [2, 4, 6]             
+                    ]
+                    
+        for combo in combination:
+            for i in combo:
+                game.structure[i] = "√"
+                game.layout()
+                tut_choice = int(input("Enter the Position where the symbol is '√' : "))
+                while True:
+                    if tut_choice -1 == i:
+                        game.structure[tut_choice-1] = "X"
+                        game.layout()
+                        break
+                    else:
+                        print("Enter the Correct position")
+                        break
+            game.refresh()
 
     def draw():
         if "_" not in game.structure:
@@ -254,13 +276,7 @@ Enter the Mode:''')
 
                 elif mode.isdigit() and int(mode) == 3:
                     print("\nYou have Selected the tutorial")
-                    game.layout()
-                    combination = [
-                        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-                        [0, 3, 6], [1, 4, 7], [2, 5, 8],  
-                        [0, 4, 8], [2, 4, 6]             
-                    ]
-                    
+                    game.tutorial()
             
                 else:
                     print("Choose mode correctly")
