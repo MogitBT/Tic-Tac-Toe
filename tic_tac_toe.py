@@ -201,15 +201,15 @@ class game:
         bot_combination = [
                         [3, 4, 5], [0, 1, 2], [3, 4, 5],
                         [1, 4, 7], [0, 3, 6], [1, 4, 7],
-                        [0, 1, 2], [1, 3, 7]
+                        [1, 6, 4], [1, 3, 7]
                     ]
-        level_count = 1           
+        level_count = 1  
+        val = 0         
         for combo in combination:
-            val = 0
             bot_combo = bot_combination[val]
             val += 1
+            bot_val = 0
             for i in combo:
-                bot_val = 0
                 game.structure[i] = "√"
                 game.layout()
                 while True:
@@ -221,8 +221,6 @@ class game:
                             tut_bot = bot_combo[bot_val]
                             bot_val += 1
                             game.structure[tut_bot] = "O"
-                            print("PC's Move : ")
-                            game.layout()
                             break
                         else:
                             print("Enter the position number correctly")
@@ -237,6 +235,7 @@ class game:
             print("Congratulations Successfully Completed Level {lvl}".format(lvl = level_count))
             level_count += 1
             game.refresh()
+        print("You have finished the tutorial successfully. You are ready to play")
 
     def draw():
         if "_" not in game.structure:
@@ -301,6 +300,7 @@ Enter the Mode : ''')
                 elif mode.isdigit() and int(mode) == 3:
                     print("\nYou have Selected the tutorial")
                     game.tutorial()
+                    main()
             
                 else:
                     print("Choose mode correctly")
