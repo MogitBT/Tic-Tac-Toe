@@ -198,20 +198,44 @@ class game:
                         [0, 3, 6], [1, 4, 7], [2, 5, 8],  
                         [0, 4, 8], [2, 4, 6]             
                     ]
-                    
+        bot_combination = [
+                        [3, 4, 5], [0, 1, 2], [3, 4, 5],
+                        [1, 4, 7], [0, 3, 6], [1, 4, 7],
+                        [0, 1, 2], [1, 3, 7]
+                    ]
+        level_count = 1           
         for combo in combination:
+            val = 0
+            bot_combo = bot_combination[val]
+            val += 1
             for i in combo:
+                bot_val = 0
                 game.structure[i] = "√"
                 game.layout()
-                tut_choice = int(input("Enter the Position where the symbol is '√' : "))
                 while True:
-                    if tut_choice -1 == i:
-                        game.structure[tut_choice-1] = "X"
-                        game.layout()
-                        break
-                    else:
+                    try :
+                        tut_choice = int(input("Enter the Position where the symbol is '√' : "))
+                        if tut_choice -1 == i:
+                            game.structure[tut_choice-1] = "X"
+                            game.layout()
+                            tut_bot = bot_combo[bot_val]
+                            bot_val += 1
+                            game.structure[tut_bot] = "O"
+                            print("PC's Move : ")
+                            game.layout()
+                            break
+                        else:
+                            print("Enter the position number correctly")
+                            game.layout()
+                            hint = input("Do you need hint?. Enter 'Y' for hint and 'N' to try again : ")
+                            if hint.upper() == "Y":
+                                print("The position where the '√' is placed is {position}".format(position = i+1))
+                            game.layout()
+                    except ValueError:
                         print("Enter the Correct position")
-                        break
+                        
+            print("Congratulations Successfully Completed Level {lvl}".format(lvl = level_count))
+            level_count += 1
             game.refresh()
 
     def draw():
@@ -230,7 +254,7 @@ def main():
                 mode = input('''1 - For Single Player
 2 - For Double Player
 3 - For Tutorial
-Enter the Mode:''')
+Enter the Mode : ''')
                 if mode.isdigit() and int(mode) ==  2: 
                     print("\nYou Are Playing Double Player Mode \n")
                     game.current_mode = 2
