@@ -203,39 +203,51 @@ class game:
                         [2, 4, 8], [0, 2, 8], [0, 4, 6],
                         [1, 6, 4], [1, 3, 7]
                     ]
-        level_count = 1  
-        val = 0         
-        for combo in combination:
-            bot_combo = bot_combination[val]
-            val += 1
-            bot_val = 0
-            for i in combo:
-                game.structure[i] = "√"
-                game.layout()
-                while True:
-                    try :
-                        tut_choice = int(input("Enter the Position where the symbol is '√' : "))
-                        if tut_choice -1 == i:
-                            game.structure[tut_choice-1] = "X"
-                            game.layout()
-                            tut_bot = bot_combo[bot_val]
-                            bot_val += 1
-                            game.structure[tut_bot] = "O"
-                            break
-                        else:
-                            print("Enter the position number correctly")
-                            game.layout()
-                            hint = input("Do you need hint?. Enter 'Y' for hint and 'N' to try again : ")
-                            if hint.upper() == "Y":
-                                print("The position where the '√' is placed is {position}".format(position = i+1))
-                            game.layout()
-                    except ValueError:
-                        print("Enter the Correct position")
-                        
-            print("Congratulations Successfully Completed Level {lvl}".format(lvl = level_count))
-            level_count += 1
-            game.refresh()
-        print("You have finished the tutorial successfully. You are ready to play")
+        difficulty = input('''Choose the difficulty level
+1. Basic
+2. Advanced
+Enter the level : ''')
+        if difficulty.isdigit and difficulty == 1:
+            level_count = 1  
+            val = 0         
+            for combo in combination:
+                bot_combo = bot_combination[val]
+                val += 1
+                bot_val = 0
+                for i in combo:
+                    game.structure[i] = "√"
+                    game.layout()
+                    while True:
+                        try :
+                            tut_choice = int(input("Enter the Position where the symbol is '√' : "))
+                            if tut_choice -1 == i:
+                                game.structure[tut_choice-1] = "X"
+                                game.layout()
+                                tut_bot = bot_combo[bot_val]
+                                bot_val += 1
+                                game.structure[tut_bot] = "O"
+                                break
+                            else:
+                                print("Enter the position number correctly")
+                                game.layout()
+                                hint = input("Do you need hint?. Enter 'Y' for hint and 'N' to try again : ")
+                                if hint.upper() == "Y":
+                                    print("The position where the '√' is placed is {position}".format(position = i+1))
+                                game.layout()
+                        except ValueError:
+                            print("Enter the Correct position")
+                            
+                print("Congratulations Successfully Completed Level {lvl}".format(lvl = level_count))
+                level_count += 1
+                game.refresh()
+            print("You have finished the tutorial successfully. You are ready to play")
+
+        elif difficulty.isdigit and difficulty == 2:
+            
+
+        else:
+            print("Invalid choice. Please choose the correct difficulty level")
+            game.tutorial()
 
     def draw():
         if "_" not in game.structure:
