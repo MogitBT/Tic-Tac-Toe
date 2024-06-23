@@ -207,7 +207,7 @@ class game:
 1. Basic
 2. Advanced
 Enter the level : ''')
-        if difficulty.isdigit and difficulty == 1:
+        if difficulty.isdigit and difficulty == '1':
             level_count = 1  
             val = 0         
             for combo in combination:
@@ -240,10 +240,23 @@ Enter the level : ''')
                 print("Congratulations Successfully Completed Level {lvl}".format(lvl = level_count))
                 level_count += 1
                 game.refresh()
-            print("You have finished the tutorial successfully. You are ready to play")
+            print("You have finished the Basic tutorial successfully.")
+            continuation = input("Do you want to enter the advanced level. Enter 'Y' for Yes and 'N' for No : ")
+            if continuation.upper() == "Y":
+                difficulty = '2'
 
         elif difficulty.isdigit and difficulty == 2:
-            
+            level2_usercombination = [
+                [2, 5, 8], 
+            ]
+
+            level2_botcombination = [
+                [0, 4, 6], 
+            ]
+
+            game.layout()
+            while True :
+                print("hi")
 
         else:
             print("Invalid choice. Please choose the correct difficulty level")
@@ -313,7 +326,6 @@ Enter the Mode : ''')
                     print("\nYou have Selected the tutorial")
                     game.tutorial()
                     main()
-            
                 else:
                     print("Choose mode correctly")
 
