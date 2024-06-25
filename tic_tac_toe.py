@@ -245,18 +245,39 @@ Enter the level : ''')
             if continuation.upper() == "Y":
                 difficulty = '2'
 
-        elif difficulty.isdigit and difficulty == 2:
+        elif difficulty.isdigit and difficulty == '2':
             level2_usercombination = [
-                [2, 5, 8], 
+                [2, 5, 8], [0, 8, 6]
             ]
 
             level2_botcombination = [
-                [0, 4, 6], 
+                [0, 4, 6], [2, 4, 6]
             ]
 
-            game.layout()
             while True :
-                print("hi")
+                tut_botcombination_value = 0
+                for tut_botcombination in level2_usercombination:
+                    tut_botcombination_combo = level2_botcombination[tut_botcombination_value]
+                    tut_botcombination_value += 1
+                    for i in tut_botcombination :
+                        for j in range(2):
+                            game.structure[tut_botcombination[j]] = "X"
+                            game.structure[tut_botcombination_combo[j]] = "O"
+                    game.layout()
+                    advanced_input = 0
+                    while advanced_input == 0:
+                        advanced_input = int(input("Enter the position where you can win or defend bot : "))
+                        if advanced_input-1 == tut_botcombination[2]:
+                            game.structure[advanced_input-1] = "X"
+                            game.layout()
+                            print("Well Done")
+                            game.refresh()
+                        else:
+                            print("Choose the move Correctly")
+                            game.layout()
+                print("Successfully Completed the advanced tutorial")
+                break
+
 
         else:
             print("Invalid choice. Please choose the correct difficulty level")
